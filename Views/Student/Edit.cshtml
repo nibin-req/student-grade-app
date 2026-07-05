@@ -1,0 +1,43 @@
+﻿@model Crud_App.Models.Student
+
+<h2>Edit Student</h2>
+
+<form asp-action="Edit" method="post">
+
+    <input type="hidden" asp-for="StudentId" />
+
+    <div>
+        <label asp-for="StudentName"></label>
+        <input asp-for="StudentName" />
+    </div>
+
+    <br />
+
+    <div>
+        <label>Subject</label>
+        <select asp-for="SubjectId">
+            @foreach (var subject in ViewBag.Subjects)
+            {
+                <option value="@subject.SubjectId">
+                    @subject.SubjectName
+                </option>
+            }
+        </select>
+    </div>
+
+    <br />
+
+    <div>
+        <label asp-for="Grade"></label>
+        <input asp-for="Grade" type="number" />
+    </div>
+
+    <br />
+
+    <button type="submit">Update</button>
+
+</form>
+
+<br />
+
+<a asp-action="Index">Back to List</a>

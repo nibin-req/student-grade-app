@@ -1,0 +1,32 @@
+﻿@model IEnumerable<Crud_App.Models.Subject>
+
+@if (TempData["Error"] != null)
+{
+    <div style="color:red;">
+        @TempData["Error"]
+    </div>
+}
+
+<h2>Subjects</h2>
+
+<a href="/Subject/Create">Add Subject</a>
+
+<table border="1">
+    <tr>
+        <th>ID</th>
+        <th>Name</th>
+        <th>Actions</th>
+    </tr>
+
+    @foreach (var item in Model)
+    {
+        <tr>
+            <td>@item.SubjectId</td>
+            <td>@item.SubjectName</td>
+            <td>
+                <a href="/Subject/Edit/@item.SubjectId">Edit</a> |
+                <a href="/Subject/Delete/@item.SubjectId">Delete</a>
+            </td>
+        </tr>
+    }
+</table>

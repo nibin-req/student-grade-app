@@ -1,0 +1,42 @@
+﻿@model Crud_App.Models.Student
+
+@if (ViewBag.Subjects == null)
+{
+    <p style="color:red;">No subjects available. Please add subjects first.</p>
+}
+@if (!ViewData.ModelState.IsValid)
+{
+    foreach (var error in ViewData.ModelState.Values.SelectMany(v => v.Errors))
+    {
+        <div style="color:red;">
+            @error.ErrorMessage
+        </div>
+    }
+}
+
+<h2>Add Student</h2>
+
+<form method="post">
+
+    <label>Name</label>
+    <input name="StudentName" />
+
+    <br />
+
+    <label>Subject</label>
+    <select name="SubjectId">
+        @foreach (var s in ViewBag.Subjects)
+        {
+            <option value="@s.SubjectId">@s.SubjectName</option>
+        }
+    </select>
+
+    <br />
+
+    <label>Grade</label>
+    <input name="Grade" type="number" />
+
+    <br />
+
+    <button type="submit">Save</button>
+</form>

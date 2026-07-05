@@ -1,0 +1,57 @@
+﻿@model IEnumerable<Crud_App.Models.Student>
+
+@* <h2>Students</h2>
+
+<form method="get" asp-action="Index">
+    <input type="text" name="searchString" value="@ViewBag.SearchString" placeholder="Search student name..." />
+    <button type="submit">Search</button>
+    <a href="/Student">Clear</a>
+</form> *@
+<h2>Students</h2>
+
+<!-- SEARCH -->
+<form method="get" asp-action="Index">
+    <input type="text" name="searchString"
+           value="@ViewBag.SearchString"
+           placeholder="Search student name..." />
+
+    <button type="submit">Search</button>
+    <a href="/Student">Clear</a>
+</form>
+
+<br />
+
+<!-- FILTER BUTTONS -->
+<div>
+    <a href="/Student">All</a> |
+    <a href="/Student?filter=PASS">PASS</a> |
+    <a href="/Student?filter=FAIL">FAIL</a>
+</div>
+
+<br />
+<br />
+<a href="/Student/Create">Add Student</a>
+
+<table border="1">
+    <tr>
+        <th>Name</th>
+        <th>Subject</th>
+        <th>Grade</th>
+        <th>Remarks</th>
+        <th>Actions</th>
+    </tr>
+
+    @foreach (var item in Model)
+    {
+        <tr>
+            <td>@item.StudentName</td>
+            <td>@item.Subject?.SubjectName</td>
+            <td>@item.Grade</td>
+            <td>@(item.Grade >= 75 ? "PASS" : "FAIL")</td>
+            <td>
+                <a href="/Student/Edit/@item.StudentId">Edit</a> |
+                <a href="/Student/Delete/@item.StudentId">Delete</a>
+            </td>
+        </tr>
+    }
+</table>

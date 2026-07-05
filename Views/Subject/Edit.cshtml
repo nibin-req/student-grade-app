@@ -1,0 +1,12 @@
+﻿@model Crud_App.Models.Subject
+
+<h2>Edit Subject</h2>
+
+<form method="post">
+    <input type="hidden" name="SubjectId" value="@Model.SubjectId" />
+
+    <label>Name</label>
+    <input type="text" name="SubjectName" value="@Model.SubjectName" />
+
+    <button type="submit">Update</button>
+</form>

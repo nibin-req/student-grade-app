@@ -1,4 +1,4 @@
-﻿@model IEnumerable<Crud_App.Models.Subject>
+﻿@* @model IEnumerable<Crud_App.Models.Subject>
 
 @if (TempData["Error"] != null)
 {
@@ -29,4 +29,64 @@
             </td>
         </tr>
     }
-</table>
+</table> *@
+
+@model IEnumerable<Crud_App.Models.Subject>
+
+<div class="container mt-4">
+
+    <h2 class="mb-3">Subjects</h2>
+
+    <div class="mb-3">
+        <a href="/Home/Index" class="btn btn-outline-secondary btn-sm">
+            Home
+        </a>
+        <a href="/Student" class="btn btn-outline-primary btn-sm">
+            Go to Students
+        </a>
+    </div>
+
+    @if (TempData["Error"] != null)
+    {
+        <div class="alert alert-danger">
+            @TempData["Error"]
+        </div>
+    }
+
+    <!-- ADD BUTTON -->
+    <div class="mb-3">
+        <a href="/Subject/Create" class="btn btn-success">
+            + Add Subject
+        </a>
+    </div>
+
+    <!-- TABLE -->
+    <div class="table-responsive">
+        <table class="table table-striped table-hover border">
+
+            <thead class="table-dark">
+                <tr>
+                    <th>ID</th>
+                    <th>Name</th>
+                    <th>Actions</th>
+                </tr>
+            </thead>
+
+            <tbody>
+                @foreach (var item in Model)
+                {
+                    <tr>
+                        <td>@item.SubjectId</td>
+                        <td>@item.SubjectName</td>
+                        <td>
+                            <a href="/Subject/Edit/@item.SubjectId" class="btn btn-warning btn-sm">Edit</a>
+                            <a href="/Subject/Delete/@item.SubjectId" class="btn btn-danger btn-sm">Delete</a>
+                        </td>
+                    </tr>
+                }
+            </tbody>
+
+        </table>
+    </div>
+
+</div>

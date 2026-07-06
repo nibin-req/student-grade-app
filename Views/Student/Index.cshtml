@@ -1,5 +1,5 @@
-﻿@model IEnumerable<Crud_App.Models.Student>
-
+﻿@* @model IEnumerable<Crud_App.Models.Student>
+ *@
 @* <h2>Students</h2>
 
 <form method="get" asp-action="Index">
@@ -7,7 +7,8 @@
     <button type="submit">Search</button>
     <a href="/Student">Clear</a>
 </form> *@
-<h2>Students</h2>
+
+@* <h2>Students</h2>
 
 <!-- SEARCH -->
 <form method="get" asp-action="Index">
@@ -54,4 +55,98 @@
             </td>
         </tr>
     }
-</table>
+</table> *@
+
+@model IEnumerable<Crud_App.Models.Student>
+
+<div class="container mt-4">
+
+    <h2 class="mb-3">
+        <h2 class="mb-3">Students</h2>
+
+        <div class="mb-3">
+            <a href="/Home/Index" class="btn btn-outline-secondary btn-sm">
+                Home
+            </a>
+            <a href="/Subject" class="btn btn-outline-primary btn-sm">
+                Go to Subjects
+            </a>
+        </div>
+    </h2>
+
+    <!-- SEARCH -->
+    <form method="get" asp-action="Index" class="mb-3 d-flex gap-2">
+
+        <input type="text"
+               name="searchString"
+               value="@ViewBag.SearchString"
+               class="form-control"
+               placeholder="Search student name..." />
+
+        <button type="submit" class="btn btn-primary">
+            Search
+        </button>
+
+        <a href="/Student" class="btn btn-secondary">
+            Clear
+        </a>
+
+    </form>
+
+    <!-- FILTER BUTTONS -->
+    <div class="mb-3">
+        <a href="/Student" class="btn btn-outline-dark btn-sm">All</a>
+        <a href="/Student?filter=PASS" class="btn btn-outline-success btn-sm">PASS</a>
+        <a href="/Student?filter=FAIL" class="btn btn-outline-danger btn-sm">FAIL</a>
+    </div>
+
+    <!-- ADD BUTTON -->
+    <div class="mb-3">
+        <a href="/Student/Create" class="btn btn-success">
+            + Add Student
+        </a>
+    </div>
+
+    <!-- TABLE -->
+    <div class="table-responsive">
+        <table class="table table-striped table-hover border">
+
+            <thead class="table-dark">
+                <tr>
+                    <th>Name</th>
+                    <th>Subject</th>
+                    <th>Grade</th>
+                    <th>Remarks</th>
+                    <th>Actions</th>
+                </tr>
+            </thead>
+
+            <tbody>
+                @foreach (var item in Model)
+                {
+                    <tr>
+                        <td>@item.StudentName</td>
+                        <td>@item.Subject?.SubjectName</td>
+                        <td>@item.Grade</td>
+                        <td>
+                            @if (item.Grade >= 75)
+                            {
+                                <span class="badge bg-success">PASS</span>
+                            }
+                            else
+                            {
+                                <span class="badge bg-danger">FAIL</span>
+                            }
+                        </td>
+                        <td>
+                            <a href="/Student/Edit/@item.StudentId" class="btn btn-warning btn-sm">Edit</a>
+                            <a href="/Student/Delete/@item.StudentId" class="btn btn-danger btn-sm">Delete</a>
+                        </td>
+                    </tr>
+                }
+            </tbody>
+
+        </table>
+    </div>
+
+</div>

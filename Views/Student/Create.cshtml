@@ -1,4 +1,4 @@
-﻿@model Crud_App.Models.Student
+﻿@* @model Crud_App.Models.Student
 
 @if (ViewBag.Subjects == null)
 {
@@ -39,4 +39,57 @@
     <br />
 
     <button type="submit">Save</button>
-</form>
+</form> *@
+
+@model Crud_App.Models.Student
+
+<div class="container mt-4">
+
+    <h2 class="mb-3">Add Student</h2>
+
+    @if (ViewBag.Subjects == null || ((IEnumerable<dynamic>)ViewBag.Subjects).Count() == 0)
+    {
+        <div class="alert alert-warning">
+            No subjects available. Please add subjects first.
+        </div>
+    }
+
+    @if (!ViewData.ModelState.IsValid)
+    {
+        <div class="alert alert-danger">
+            @foreach (var error in ViewData.ModelState.Values.SelectMany(v => v.Errors))
+            {
+                <div>@error.ErrorMessage</div>
+            }
+        </div>
+    }
+
+    <form method="post" class="p-4 border rounded shadow-sm bg-light">
+
+        <div class="mb-3">
+            <label class="form-label">Student Name</label>
+            <input name="StudentName" class="form-control" />
+        </div>
+
+        <div class="mb-3">
+            <label class="form-label">Subject</label>
+            <select name="SubjectId" class="form-select">
+                @foreach (var s in ViewBag.Subjects)
+                {
+                    <option value="@s.SubjectId">@s.SubjectName</option>
+                }
+            </select>
+        </div>
+
+        <div class="mb-3">
+            <label class="form-label">Grade</label>
+            <input name="Grade" type="number" class="form-control" />
+        </div>
+
+        <button type="submit" class="btn btn-primary">
+            Save
+        </button>
+
+    </form>
+
+</div>

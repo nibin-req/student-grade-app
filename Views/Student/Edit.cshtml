@@ -1,4 +1,4 @@
-﻿@model Crud_App.Models.Student
+﻿@* @model Crud_App.Models.Student
 
 <h2>Edit Student</h2>
 
@@ -40,4 +40,48 @@
 
 <br />
 
-<a asp-action="Index">Back to List</a>
+<a asp-action="Index">Back to List</a> *@
+
+@model Crud_App.Models.Student
+
+<div class="container mt-4">
+
+    <h2 class="mb-3">Edit Student</h2>
+
+    <form asp-action="Edit" method="post" class="p-4 border rounded shadow-sm bg-light">
+
+        <input type="hidden" asp-for="StudentId" />
+
+        <div class="mb-3">
+            <label asp-for="StudentName" class="form-label"></label>
+            <input asp-for="StudentName" class="form-control" />
+        </div>
+
+        <div class="mb-3">
+            <label class="form-label">Subject</label>
+            <select asp-for="SubjectId" class="form-select">
+                @foreach (var subject in ViewBag.Subjects)
+                {
+                    <option value="@subject.SubjectId">
+                        @subject.SubjectName
+                    </option>
+                }
+            </select>
+        </div>
+
+        <div class="mb-3">
+            <label asp-for="Grade" class="form-label"></label>
+            <input asp-for="Grade" type="number" class="form-control" />
+        </div>
+
+        <button type="submit" class="btn btn-primary">
+            Update
+        </button>
+
+        <a asp-action="Index" class="btn btn-secondary ms-2">
+            Back
+        </a>
+
+    </form>
+
+</div>
